@@ -1,0 +1,10 @@
+Output: Export IDF
+Type  : ExportIDF
+From  : PCB Document [arduinoLeonardoOwn.PcbDoc]
+   Generated File[arduinoLeonardoOwn.brd]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 13:42:24 On 04.07.2021

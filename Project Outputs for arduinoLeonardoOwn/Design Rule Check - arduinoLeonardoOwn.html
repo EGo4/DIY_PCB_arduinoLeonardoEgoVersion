@@ -1,0 +1,899 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD18\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">14.06.2021</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">20:00:50</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc" class="file"><acronym title="C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc">C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">177</td></tr>
+</table>
+</td>
+</table><a name="IDVLTWXLOMCGXTILQRAPBDLFD4DKVAAOEJM0CORLY5RLWDNQGZGOB"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDY4VT13V2QWMPO5Y4NF3KSLAUGFMAT2WNAFK2V0PAY0IIOMT4V4XH">Clearance Constraint (Gap=5mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZBZG3USO35N3K3MVUSPOQ5JADM0M5VG4MOQT0ETKH1KMK40J34F">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDN0HJYA3PI2VVFHYP2AHTFCRT1IKTKUUF52V11UI5YIHMB4NIINEF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKEMYAAL01QGWECFK54IT2PREMMAYG5KVCRDPL0NQWCL1LEGI21PB">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQXVIIEJJD1NTGK455UBY0JAQJKDM0CSBS1U0KRLNMNLIPMDLAY3J">Width Constraint (Min=6mil) (Max=118.11mil) (Preferred=12mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDIRNKRF4GDGUDCDHCY4EGO2YBJH5JP2F0V1APAQMVVCISKKRMHKNF">SMD To Corner (Distance=6mil) (All)</a></td>
+<td class="column2">13</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCKEQWG53JLEHONOBZBKAIGFIJJGFX5ZMXQTQV5IHUGUJPVIMVLSD">SMD Entry (Side = Allowed) (Corner = Allowed) (Any Angle = Not Allowed) (Ignore First Corner = Allowed)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLS5ADKJFNVP4ONUUCSJ3VGPW0JZPEE4Z0OVTNOLCH3RXP5O3PWGB">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRNBOTOKBBG42ESTB52NBE0OXQGKWLGN3DY4JP1F54YVN03WFHRJM">Minimum Annular Ring (Minimum=2.992mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMQYRRS4OUT2BI5GYW3GK0DZP2G4LMGVVBYZ5G2MEW5VIPTDOHO4J">Acute Angle Constraint (Minimum=45.000) (All)</a></td>
+<td class="column2">5</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDODFYTQJYPY0HIOR33WJB5CNDDKTDQW4ELFEEYXKBRXMJQ04UPU3">Hole Size Constraint (Min=7.874mil) (Max=275.591mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQG4V1JHZFCEAFSE2YRCTMPFA2JAVA3VDS2RJEEDONHXOSD20B3CN">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSJE1JTDXB21FDMZHJ1UN5W4NFHQQKFRU1LJU2LK43B0GH1IH1GO">Minimum Solder Mask Sliver (Gap=7.874mil) (All),(All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUOIFMOGOO55DCUZJK3VQRMW53DJRNTYID4I113NQCQJFYE0S5KPD">Silk To Solder Mask (Clearance=10mil) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDY4A3VZPP3NUXJAOTALT1QM5MNIOIVXMDGO3YFQBLRDGUJTOU0XE">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMYECZTQKABV2GDMHCVKUHLACJJPKR3OCHZ2RGUOLW350UU52C4L">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">17</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDPXOFZW5PKMEQIUEJS1JAM1YIPDEO3YOTYZ5NENNV02EWBUFB0IWF">Board Clearance Constraint (Gap=0mil) (All)</a></td>
+<td class="column2">135</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHRWURE1N2PBWOPAVCXL34GTEILWWFXU4V43ADLNKVG4O5RSL5OMP">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">177</td>
+</tr>
+</table><br><a name="IDIRNKRF4GDGUDCDHCY4EGO2YBJH5JP2F0V1APAQMVVCISKKRMHKNF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">SMD To Corner (Distance=6mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1758.105mil|Location2.X=1760.305mil|Location1.Y=3887.9mil|Location2.Y=3890.1mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1758.105mil|Location2.X=1760.305mil|Location1.Y=3887.9mil|Location2.Y=3890.1mil|Absolute=True">SMD To Corner Constraint: (0.41mil &lt; 6mil) Between Pad D1-3(1765.316mil,3892.442mil) on Bottom Layer And Track (1759mil,3889mil)(1765.316mil,3889mil) on Bottom Layer Actual Distance = 0.41mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1058.9mil|Location2.X=1061.1mil|Location1.Y=4205.152mil|Location2.Y=4207.352mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1058.9mil|Location2.X=1061.1mil|Location1.Y=4205.152mil|Location2.Y=4207.352mil|Absolute=True">SMD To Corner Constraint: (4.504mil &lt; 6mil) Between Pad J4-1(1060mil,4240mil) on Multi-Layer And Track (1060mil,4204mil)(1060mil,4240mil) on Bottom Layer Actual Distance = 4.504mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1058.9mil|Location2.X=1061.1mil|Location1.Y=4405.016mil|Location2.Y=4407.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1058.9mil|Location2.X=1061.1mil|Location1.Y=4405.016mil|Location2.Y=4407.216mil|Absolute=True">SMD To Corner Constraint: (4.232mil &lt; 6mil) Between Pad J4-3(1060mil,4440mil) on Multi-Layer And Track (1060mil,4404mil)(1060mil,4440mil) on Bottom Layer Actual Distance = 4.232mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1058.9mil|Location2.X=1061.1mil|Location1.Y=4705.516mil|Location2.Y=4707.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1058.9mil|Location2.X=1061.1mil|Location1.Y=4705.516mil|Location2.Y=4707.716mil|Absolute=True">SMD To Corner Constraint: (3.232mil &lt; 6mil) Between Pad J4-6(1060mil,4740mil) on Multi-Layer And Track (1060mil,4705mil)(1060mil,4740mil) on Bottom Layer Actual Distance = 3.232mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1808.761mil|Location2.X=1810.961mil|Location1.Y=4818.9mil|Location2.Y=4821.1mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1808.761mil|Location2.X=1810.961mil|Location1.Y=4818.9mil|Location2.Y=4821.1mil|Absolute=True">SMD To Corner Constraint: (4.757mil &lt; 6mil) Between Pad J7-5(1845mil,4820mil) on Multi-Layer And Track (1807.482mil,4820mil)(1845mil,4820mil) on Top Layer Actual Distance = 4.757mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1747.571mil|Location2.X=1749.771mil|Location1.Y=3980.959mil|Location2.Y=3983.16mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1747.571mil|Location2.X=1749.771mil|Location1.Y=3980.959mil|Location2.Y=3983.16mil|Absolute=True">SMD To Corner Constraint: (3.937mil &lt; 6mil) Between Pad R3-2(1745mil,3960.434mil) on Top Layer And Track (1745mil,3960.434mil)(1749mil,3984mil) on Top Layer Actual Distance = 3.937mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.8mil|Location2.X=1510mil|Location1.Y=4506.171mil|Location2.Y=4508.371mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.8mil|Location2.X=1510mil|Location1.Y=4506.171mil|Location2.Y=4508.371mil|Absolute=True">SMD To Corner Constraint: (2.282mil &lt; 6mil) Between Pad U1-14(1470.59mil,4499.488mil) on Top Layer And Track (1508.9mil,4499.488mil)(1508.9mil,4508.412mil) on Top Layer Actual Distance = 2.282mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1428.654mil|Location2.X=1430.854mil|Location1.Y=4372.404mil|Location2.Y=4374.604mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1428.654mil|Location2.X=1430.854mil|Location1.Y=4372.404mil|Location2.Y=4374.604mil|Absolute=True">SMD To Corner Constraint: (0.5mil &lt; 6mil) Between Pad U1-18(1470.59mil,4373.504mil) on Top Layer And Track (1429.504mil,4373.504mil)(1470.59mil,4373.504mil) on Top Layer Actual Distance = 0.5mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1511.988mil|Location2.X=1514.188mil|Location1.Y=4340.908mil|Location2.Y=4343.108mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1511.988mil|Location2.X=1514.188mil|Location1.Y=4340.908mil|Location2.Y=4343.108mil|Absolute=True">SMD To Corner Constraint: (3.824mil &lt; 6mil) Between Pad U1-19(1470.59mil,4342.008mil) on Top Layer And Track (1470.59mil,4342.008mil)(1515mil,4342.008mil) on Top Layer Actual Distance = 3.824mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1819.884mil|Location2.X=1822.084mil|Location1.Y=4586.61mil|Location2.Y=4588.81mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1819.884mil|Location2.X=1822.084mil|Location1.Y=4586.61mil|Location2.Y=4588.81mil|Absolute=True">SMD To Corner Constraint: (2.228mil &lt; 6mil) Between Pad U1-2(1820.984mil,4629.41mil) on Top Layer And Track (1820.984mil,4586.596mil)(1820.984mil,4629.41mil) on Top Layer Actual Distance = 2.228mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.388mil|Location2.X=1790.588mil|Location1.Y=4586.816mil|Location2.Y=4589.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.388mil|Location2.X=1790.588mil|Location1.Y=4586.816mil|Location2.Y=4589.016mil|Absolute=True">SMD To Corner Constraint: (1.817mil &lt; 6mil) Between Pad U1-3(1789.488mil,4629.41mil) on Top Layer And Track (1789.488mil,4587.007mil)(1789.488mil,4629.41mil) on Top Layer Actual Distance = 1.817mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1960.647mil|Location2.X=1962.847mil|Location1.Y=4403.9mil|Location2.Y=4406.1mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1960.647mil|Location2.X=1962.847mil|Location1.Y=4403.9mil|Location2.Y=4406.1mil|Absolute=True">SMD To Corner Constraint: (3.506mil &lt; 6mil) Between Pad U1-39(1919.408mil,4405mil) on Top Layer And Track (1919.408mil,4405mil)(1963.5mil,4405mil) on Top Layer Actual Distance = 3.506mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1953.9mil|Location2.X=1956.1mil|Location1.Y=4444.896mil|Location2.Y=4447.096mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1953.9mil|Location2.X=1956.1mil|Location1.Y=4444.896mil|Location2.Y=4447.096mil|Absolute=True">SMD To Corner Constraint: (0.009mil &lt; 6mil) Between Pad U1-40(1919.408mil,4436.496mil) on Top Layer And Track (1955mil,4436.496mil)(1955mil,4446mil) on Top Layer Actual Distance = 0.009mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDMQYRRS4OUT2BI5GYW3GK0DZP2G4LMGVVBYZ5G2MEW5VIPTDOHO4J"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Acute Angle Constraint (Minimum=45.000) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1569.568mil|Location2.X=1589.068mil|Location1.Y=4271.61mil|Location2.Y=4291.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1569.568mil|Location2.X=1589.068mil|Location1.Y=4271.61mil|Location2.Y=4291.11mil|Absolute=True">Acute Angle Constraint: (44,791 &lt; 45,000) Between Track (1569.016mil,4262.5mil)(1569.016mil,4312.064mil) on Top Layer And Track (1581.516mil,4275mil)(1749.134mil,4275mil) on Top Layer (Angle = 44,791)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1784.11mil|Location2.X=1803.61mil|Location1.Y=4682.03mil|Location2.Y=4701.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1784.11mil|Location2.X=1803.61mil|Location1.Y=4682.03mil|Location2.Y=4701.53mil|Absolute=True">Acute Angle Constraint: (44,999 &lt; 45,000) Between Track (1775mil,4681.478mil)(1788.482mil,4694.96mil) on Top Layer And Track (1775mil,4681.478mil)(1819.506mil,4681.478mil) on Top Layer (Angle = 44,999)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1807.034mil|Location2.X=1826.534mil|Location1.Y=4820.552mil|Location2.Y=4840.052mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1807.034mil|Location2.X=1826.534mil|Location1.Y=4820.552mil|Location2.Y=4840.052mil|Absolute=True">Acute Angle Constraint: (23,369 &lt; 45,000) Between Pad J7-5(1845mil,4820mil) on Multi-Layer And Track (1806.482mil,4821mil)(1806.482mil,4864mil) on Top Layer (Angle = 23,369)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1764.448mil|Location2.X=1783.948mil|Location1.Y=4893.686mil|Location2.Y=4913.186mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1764.448mil|Location2.X=1783.948mil|Location1.Y=4893.686mil|Location2.Y=4913.186mil|Absolute=True">Acute Angle Constraint: (41,251 &lt; 45,000) Between Pad J7-4(1745mil,4920mil) on Multi-Layer And Track (1776mil,4887.5mil)(1776mil,4920mil) on Bottom Layer (Angle = 41,251)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1735.237mil|Location2.X=1754.737mil|Location1.Y=3875.935mil|Location2.Y=3895.435mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1735.237mil|Location2.X=1754.737mil|Location1.Y=3875.935mil|Location2.Y=3895.435mil|Absolute=True">Acute Angle Constraint: (45,000 &lt; 45,000) Between Track (1684.5mil,3889mil)(1759mil,3889mil) on Bottom Layer And Track (1745mil,3875mil)(1759mil,3889mil) on Bottom Layer (Angle = 45,000)</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDSJE1JTDXB21FDMZHJ1UN5W4NFHQQKFRU1LJU2LK43B0GH1IH1GO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=7.874mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1770.596mil|Location2.X=1779.72mil|Location1.Y=3878.037mil|Location2.Y=3887.162mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1770.596mil|Location2.X=1779.72mil|Location1.Y=3878.037mil|Location2.Y=3887.162mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.873mil &lt; 7.874mil) Between Pad D1-2(1785mil,3892.442mil) on Bottom Layer And Pad D1-3(1765.316mil,3892.442mil) on Bottom Layer [Bottom Solder] Mask Sliver [7.873mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1770.596mil|Location2.X=1779.72mil|Location1.Y=3933.155mil|Location2.Y=3942.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1770.596mil|Location2.X=1779.72mil|Location1.Y=3933.155mil|Location2.Y=3942.28mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.873mil &lt; 7.874mil) Between Pad D1-4(1765.316mil,3947.56mil) on Bottom Layer And Pad D1-5(1785mil,3947.56mil) on Bottom Layer [Bottom Solder] Mask Sliver [7.873mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1522.741mil|Location2.X=1531.865mil|Location1.Y=3498.272mil|Location2.Y=3507.396mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1522.741mil|Location2.X=1531.865mil|Location1.Y=3498.272mil|Location2.Y=3507.396mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.282mil &lt; 7.874mil) Between Pad J6-1(1538.818mil,3490.236mil) on Top Layer And Pad J6-Shell(1501.024mil,3502.834mil) on Multi-Layer [Top Solder] Mask Sliver [7.282mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1648.135mil|Location2.X=1657.259mil|Location1.Y=3498.272mil|Location2.Y=3507.396mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1648.135mil|Location2.X=1657.259mil|Location1.Y=3498.272mil|Location2.Y=3507.396mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.282mil &lt; 7.874mil) Between Pad J6-5(1641.182mil,3490.236mil) on Top Layer And Pad J6-Shell(1678.976mil,3502.834mil) on Multi-Layer [Top Solder] Mask Sliver [7.282mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDY4A3VZPP3NUXJAOTALT1QM5MNIOIVXMDGO3YFQBLRDGUJTOU0XE"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1580.558mil|Location2.X=1591.808mil|Location1.Y=4789.572mil|Location2.Y=4800.822mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1580.558mil|Location2.X=1591.808mil|Location1.Y=4789.572mil|Location2.Y=4800.822mil|Absolute=True">Silk To Silk Clearance Constraint: (9.76mil &lt; 10mil) Between Text "1" (1561.142mil,4795.197mil) on Top Overlay And Track (1595mil,4770mil)(1595mil,4970mil) on Top Overlay Silk Text to Silk Clearance [9.76mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1877.494mil|Location2.X=1888.744mil|Location1.Y=4757.085mil|Location2.Y=4768.335mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1877.494mil|Location2.X=1888.744mil|Location1.Y=4757.085mil|Location2.Y=4768.335mil|Absolute=True">Silk To Silk Clearance Constraint: (6.706mil &lt; 10mil) Between Text "J7" (1870mil,4715mil) on Top Overlay And Track (1595mil,4770mil)(1895mil,4770mil) on Top Overlay Silk Text to Silk Clearance [6.706mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1889.375mil|Location2.X=1900.625mil|Location1.Y=4757.085mil|Location2.Y=4768.335mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1889.375mil|Location2.X=1900.625mil|Location1.Y=4757.085mil|Location2.Y=4768.335mil|Absolute=True">Silk To Silk Clearance Constraint: (6.706mil &lt; 10mil) Between Text "J7" (1870mil,4715mil) on Top Overlay And Track (1895mil,4770mil)(1895mil,4970mil) on Top Overlay Silk Text to Silk Clearance [6.706mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDMYECZTQKABV2GDMHCVKUHLACJJPKR3OCHZ2RGUOLW350UU52C4L"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1005.122mil|Location2.X=1072.25mil|Location1.Y=3395.82mil|Location2.Y=3503.068mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1005.122mil|Location2.X=1072.25mil|Location1.Y=3395.82mil|Location2.Y=3503.068mil|Absolute=True">Net Antennae: Via (1033.622mil,3424.32mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1034.816mil|Location2.X=1101.944mil|Location1.Y=3324.136mil|Location2.Y=3431.384mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1034.816mil|Location2.X=1101.944mil|Location1.Y=3324.136mil|Location2.Y=3431.384mil|Absolute=True">Net Antennae: Via (1063.316mil,3352.636mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1034.816mil|Location2.X=1101.944mil|Location1.Y=3467.506mil|Location2.Y=3574.754mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1034.816mil|Location2.X=1101.944mil|Location1.Y=3467.506mil|Location2.Y=3574.754mil|Absolute=True">Net Antennae: Via (1063.316mil,3496.006mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1106.5mil|Location2.X=1173.628mil|Location1.Y=3294.442mil|Location2.Y=3401.69mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1106.5mil|Location2.X=1173.628mil|Location1.Y=3294.442mil|Location2.Y=3401.69mil|Absolute=True">Net Antennae: Via (1135mil,3322.942mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1178.186mil|Location2.X=1245.314mil|Location1.Y=3324.136mil|Location2.Y=3431.384mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1178.186mil|Location2.X=1245.314mil|Location1.Y=3324.136mil|Location2.Y=3431.384mil|Absolute=True">Net Antennae: Via (1206.686mil,3352.636mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1178.186mil|Location2.X=1245.314mil|Location1.Y=3467.506mil|Location2.Y=3574.754mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1178.186mil|Location2.X=1245.314mil|Location1.Y=3467.506mil|Location2.Y=3574.754mil|Absolute=True">Net Antennae: Via (1206.686mil,3496.006mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.816mil|Location2.X=1291.944mil|Location1.Y=4754.816mil|Location2.Y=4862.064mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.816mil|Location2.X=1291.944mil|Location1.Y=4754.816mil|Location2.Y=4862.064mil|Absolute=True">Net Antennae: Via (1253.316mil,4783.316mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.816mil|Location2.X=1291.944mil|Location1.Y=4898.186mil|Location2.Y=5005.434mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.816mil|Location2.X=1291.944mil|Location1.Y=4898.186mil|Location2.Y=5005.434mil|Absolute=True">Net Antennae: Via (1253.316mil,4926.686mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1296.5mil|Location2.X=1363.628mil|Location1.Y=4927.878mil|Location2.Y=5035.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1296.5mil|Location2.X=1363.628mil|Location1.Y=4927.878mil|Location2.Y=5035.126mil|Absolute=True">Net Antennae: Via (1325mil,4956.378mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1368.186mil|Location2.X=1435.314mil|Location1.Y=4754.816mil|Location2.Y=4862.064mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1368.186mil|Location2.X=1435.314mil|Location1.Y=4754.816mil|Location2.Y=4862.064mil|Absolute=True">Net Antennae: Via (1396.686mil,4783.316mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1368.186mil|Location2.X=1435.314mil|Location1.Y=4898.186mil|Location2.Y=5005.434mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1368.186mil|Location2.X=1435.314mil|Location1.Y=4898.186mil|Location2.Y=5005.434mil|Absolute=True">Net Antennae: Via (1396.686mil,4926.686mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1949.816mil|Location2.X=2016.944mil|Location1.Y=3311.74mil|Location2.Y=3418.988mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1949.816mil|Location2.X=2016.944mil|Location1.Y=3311.74mil|Location2.Y=3418.988mil|Absolute=True">Net Antennae: Via (1978.316mil,3340.24mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1949.816mil|Location2.X=2016.944mil|Location1.Y=3455.11mil|Location2.Y=3562.358mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1949.816mil|Location2.X=2016.944mil|Location1.Y=3455.11mil|Location2.Y=3562.358mil|Absolute=True">Net Antennae: Via (1978.316mil,3483.61mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2021.5mil|Location2.X=2088.628mil|Location1.Y=3282.046mil|Location2.Y=3389.294mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2021.5mil|Location2.X=2088.628mil|Location1.Y=3282.046mil|Location2.Y=3389.294mil|Absolute=True">Net Antennae: Via (2050mil,3310.546mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.186mil|Location2.X=2160.314mil|Location1.Y=3311.74mil|Location2.Y=3418.988mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.186mil|Location2.X=2160.314mil|Location1.Y=3311.74mil|Location2.Y=3418.988mil|Absolute=True">Net Antennae: Via (2121.686mil,3340.24mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.186mil|Location2.X=2160.314mil|Location1.Y=3455.11mil|Location2.Y=3562.358mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.186mil|Location2.X=2160.314mil|Location1.Y=3455.11mil|Location2.Y=3562.358mil|Absolute=True">Net Antennae: Via (2121.686mil,3483.61mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2122.878mil|Location2.X=2190.006mil|Location1.Y=3383.424mil|Location2.Y=3490.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2122.878mil|Location2.X=2190.006mil|Location1.Y=3383.424mil|Location2.Y=3490.672mil|Absolute=True">Net Antennae: Via (2151.378mil,3411.924mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDPXOFZW5PKMEQIUEJS1JAM1YIPDEO3YOTYZ5NENNV02EWBUFB0IWF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.222mil|Location2.X=7.445mil|Location1.Y=-2.811mil|Location2.Y=4.856mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.222mil|Location2.X=7.445mil|Location1.Y=-2.811mil|Location2.Y=4.856mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (-0.883mil,-2.663mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.888mil|Location2.X=22.555mil|Location1.Y=19.275mil|Location2.Y=26.942mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.888mil|Location2.X=22.555mil|Location1.Y=19.275mil|Location2.Y=26.942mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (-1.577mil,17.962mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1.956mil|Location2.X=9.623mil|Location1.Y=2.784mil|Location2.Y=10.45mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1.956mil|Location2.X=9.623mil|Location1.Y=2.784mil|Location2.Y=10.45mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (1.717mil,12.187mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2.199mil|Location2.X=9.865mil|Location1.Y=0.221mil|Location2.Y=7.887mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2.199mil|Location2.X=9.865mil|Location1.Y=0.221mil|Location2.Y=7.887mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (10.844mil,-9.128mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3.577mil|Location2.X=11.243mil|Location1.Y=0.62mil|Location2.Y=8.287mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3.577mil|Location2.X=11.243mil|Location1.Y=0.62mil|Location2.Y=8.287mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (13.076mil,-16.683mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.106mil|Location2.X=20.773mil|Location1.Y=2.071mil|Location2.Y=9.738mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.106mil|Location2.X=20.773mil|Location1.Y=2.071mil|Location2.Y=9.738mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (13.277mil,-6.312mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.289mil|Location2.X=22.956mil|Location1.Y=18.132mil|Location2.Y=25.799mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.289mil|Location2.X=22.956mil|Location1.Y=18.132mil|Location2.Y=25.799mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (14.156mil,21.475mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.663mil|Location2.X=7.003mil|Location1.Y=1.056mil|Location2.Y=8.723mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.663mil|Location2.X=7.003mil|Location1.Y=1.056mil|Location2.Y=8.723mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (14.358mil,-16.339mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10.83mil|Location2.X=18.496mil|Location1.Y=0.583mil|Location2.Y=8.249mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10.83mil|Location2.X=18.496mil|Location1.Y=0.583mil|Location2.Y=8.249mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (14.924mil,53.261mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11.709mil|Location2.X=19.376mil|Location1.Y=0.706mil|Location2.Y=8.372mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11.709mil|Location2.X=19.376mil|Location1.Y=0.706mil|Location2.Y=8.372mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (15.508mil,-10.495mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.954mil|Location2.X=21.621mil|Location1.Y=15.983mil|Location2.Y=23.649mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.954mil|Location2.X=21.621mil|Location1.Y=15.983mil|Location2.Y=23.649mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (16.271mil,25.376mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=16.072mil|Location2.X=23.739mil|Location1.Y=21.694mil|Location2.Y=29.361mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=16.072mil|Location2.X=23.739mil|Location1.Y=21.694mil|Location2.Y=29.361mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (16.391mil,20.151mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8.865mil|Location2.X=16.531mil|Location1.Y=0.864mil|Location2.Y=8.531mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8.865mil|Location2.X=16.531mil|Location1.Y=0.864mil|Location2.Y=8.531mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (16.518mil,129.222mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.877mil|Location2.X=20.544mil|Location1.Y=0.812mil|Location2.Y=8.479mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.877mil|Location2.X=20.544mil|Location1.Y=0.812mil|Location2.Y=8.479mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (16.57mil,15.437mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.83mil|Location2.X=21.496mil|Location1.Y=1.816mil|Location2.Y=9.482mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.83mil|Location2.X=21.496mil|Location1.Y=1.816mil|Location2.Y=9.482mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (16.666mil,3.871mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.977mil|Location2.X=21.643mil|Location1.Y=0.954mil|Location2.Y=8.62mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.977mil|Location2.X=21.643mil|Location1.Y=0.954mil|Location2.Y=8.62mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (17.045mil,8.256mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.28mil|Location2.X=21.947mil|Location1.Y=1.431mil|Location2.Y=9.098mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.28mil|Location2.X=21.947mil|Location1.Y=1.431mil|Location2.Y=9.098mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (17.333mil,4.788mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10.905mil|Location2.X=18.572mil|Location1.Y=14.707mil|Location2.Y=22.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10.905mil|Location2.X=18.572mil|Location1.Y=14.707mil|Location2.Y=22.373mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (17.452mil,11.26mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.227mil|Location2.X=22.894mil|Location1.Y=17.218mil|Location2.Y=24.884mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.227mil|Location2.X=22.894mil|Location1.Y=17.218mil|Location2.Y=24.884mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (17.723mil,20.86mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.845mil|Location2.X=22.512mil|Location1.Y=16.24mil|Location2.Y=23.907mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.845mil|Location2.X=22.512mil|Location1.Y=16.24mil|Location2.Y=23.907mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (17.75mil,21.422mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.621mil|Location2.X=20.288mil|Location1.Y=3.186mil|Location2.Y=10.853mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.621mil|Location2.X=20.288mil|Location1.Y=3.186mil|Location2.Y=10.853mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (-176.079mil,131.191mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.528mil|Location2.X=20.194mil|Location1.Y=2.63mil|Location2.Y=10.297mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.528mil|Location2.X=20.194mil|Location1.Y=2.63mil|Location2.Y=10.297mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.025mil,11.569mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7.863mil|Location2.X=15.53mil|Location1.Y=12.7mil|Location2.Y=20.367mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7.863mil|Location2.X=15.53mil|Location1.Y=12.7mil|Location2.Y=20.367mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.149mil,10.136mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6.234mil|Location2.X=13.901mil|Location1.Y=10.834mil|Location2.Y=18.501mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6.234mil|Location2.X=13.901mil|Location1.Y=10.834mil|Location2.Y=18.501mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.237mil,10.053mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.166mil|Location2.X=22.833mil|Location1.Y=16.596mil|Location2.Y=24.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.166mil|Location2.X=22.833mil|Location1.Y=16.596mil|Location2.Y=24.263mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.274mil,20.842mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.851mil|Location2.X=23.518mil|Location1.Y=4.13mil|Location2.Y=11.796mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.851mil|Location2.X=23.518mil|Location1.Y=4.13mil|Location2.Y=11.796mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.341mil,7.765mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5.639mil|Location2.X=13.306mil|Location1.Y=9.7mil|Location2.Y=17.367mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5.639mil|Location2.X=13.306mil|Location1.Y=9.7mil|Location2.Y=17.367mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.44mil,9.296mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.554mil|Location2.X=23.221mil|Location1.Y=4.92mil|Location2.Y=12.587mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.554mil|Location2.X=23.221mil|Location1.Y=4.92mil|Location2.Y=12.587mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.487mil,7.854mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.166mil|Location2.X=26.833mil|Location1.Y=21.536mil|Location2.Y=29.203mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.166mil|Location2.X=26.833mil|Location1.Y=21.536mil|Location2.Y=29.203mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.553mil,29.147mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.713mil|Location2.X=28.379mil|Location1.Y=14.728mil|Location2.Y=22.395mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.713mil|Location2.X=28.379mil|Location1.Y=14.728mil|Location2.Y=22.395mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.631mil,19.947mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.73mil|Location2.X=22.396mil|Location1.Y=5.15mil|Location2.Y=12.817mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.73mil|Location2.X=22.396mil|Location1.Y=5.15mil|Location2.Y=12.817mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.669mil,8.249mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.545mil|Location2.X=23.212mil|Location1.Y=21.908mil|Location2.Y=29.574mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.545mil|Location2.X=23.212mil|Location1.Y=21.908mil|Location2.Y=29.574mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.779mil,24.343mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.016mil|Location2.X=22.683mil|Location1.Y=21.991mil|Location2.Y=29.658mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.016mil|Location2.X=22.683mil|Location1.Y=21.991mil|Location2.Y=29.658mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (18.98mil,25.268mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.117mil|Location2.X=21.784mil|Location1.Y=4.863mil|Location2.Y=12.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.117mil|Location2.X=21.784mil|Location1.Y=4.863mil|Location2.Y=12.53mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (19.081mil,7.758mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.281mil|Location2.X=28.948mil|Location1.Y=19.385mil|Location2.Y=27.051mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.281mil|Location2.X=28.948mil|Location1.Y=19.385mil|Location2.Y=27.051mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (19.855mil,22.88mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-2.452mil|Location2.X=5.214mil|Location1.Y=-2.136mil|Location2.Y=5.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-2.452mil|Location2.X=5.214mil|Location1.Y=-2.136mil|Location2.Y=5.53mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (2.644mil,2.454mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.502mil|Location2.X=28.168mil|Location1.Y=14.059mil|Location2.Y=21.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.502mil|Location2.X=28.168mil|Location1.Y=14.059mil|Location2.Y=21.726mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (21.216mil,19.258mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.643mil|Location2.X=26.31mil|Location1.Y=21.117mil|Location2.Y=28.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.643mil|Location2.X=26.31mil|Location1.Y=21.117mil|Location2.Y=28.784mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (21.546mil,26.19mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.484mil|Location2.X=27.151mil|Location1.Y=1.661mil|Location2.Y=9.328mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.484mil|Location2.X=27.151mil|Location1.Y=1.661mil|Location2.Y=9.328mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (21.744mil,4.973mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.029mil|Location2.X=25.695mil|Location1.Y=20.974mil|Location2.Y=28.64mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.029mil|Location2.X=25.695mil|Location1.Y=20.974mil|Location2.Y=28.64mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (21.893mil,25.66mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.332mil|Location2.X=28.999mil|Location1.Y=20.465mil|Location2.Y=28.132mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.332mil|Location2.X=28.999mil|Location1.Y=20.465mil|Location2.Y=28.132mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (219.572mil,59.461mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.169mil|Location2.X=26.835mil|Location1.Y=2.273mil|Location2.Y=9.939mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.169mil|Location2.X=26.835mil|Location1.Y=2.273mil|Location2.Y=9.939mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (22.189mil,5.294mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.747mil|Location2.X=22.414mil|Location1.Y=21.481mil|Location2.Y=29.148mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.747mil|Location2.X=22.414mil|Location1.Y=21.481mil|Location2.Y=29.148mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (22.207mil,25.284mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=17.476mil|Location2.X=25.143mil|Location1.Y=21.118mil|Location2.Y=28.785mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=17.476mil|Location2.X=25.143mil|Location1.Y=21.118mil|Location2.Y=28.785mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (22.248mil,26.897mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.521mil|Location2.X=27.187mil|Location1.Y=0.829mil|Location2.Y=8.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.521mil|Location2.X=27.187mil|Location1.Y=0.829mil|Location2.Y=8.496mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (22.592mil,4.927mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.401mil|Location2.X=27.067mil|Location1.Y=0.568mil|Location2.Y=8.234mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.401mil|Location2.X=27.067mil|Location1.Y=0.568mil|Location2.Y=8.234mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (22.975mil,4.716mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.901mil|Location2.X=26.568mil|Location1.Y=0.546mil|Location2.Y=8.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.901mil|Location2.X=26.568mil|Location1.Y=0.546mil|Location2.Y=8.213mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (22.979mil,5.317mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.229mil|Location2.X=25.896mil|Location1.Y=0.806mil|Location2.Y=8.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.229mil|Location2.X=25.896mil|Location1.Y=0.806mil|Location2.Y=8.472mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (23.954mil,7.567mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.739mil|Location2.X=28.405mil|Location1.Y=22.687mil|Location2.Y=30.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.739mil|Location2.X=28.405mil|Location1.Y=22.687mil|Location2.Y=30.353mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (24.655mil,25.855mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=17.336mil|Location2.X=25.003mil|Location1.Y=1.513mil|Location2.Y=9.18mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=17.336mil|Location2.X=25.003mil|Location1.Y=1.513mil|Location2.Y=9.18mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (24.917mil,8.642mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.221mil|Location2.X=27.887mil|Location1.Y=22.519mil|Location2.Y=30.186mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.221mil|Location2.X=27.887mil|Location1.Y=22.519mil|Location2.Y=30.186mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (25.092mil,25.081mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4.185mil|Location2.X=11.852mil|Location1.Y=6.308mil|Location2.Y=13.974mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4.185mil|Location2.X=11.852mil|Location1.Y=6.308mil|Location2.Y=13.974mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (-25.239mil,20.731mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.784mil|Location2.X=26.451mil|Location1.Y=3.104mil|Location2.Y=10.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.784mil|Location2.X=26.451mil|Location1.Y=3.104mil|Location2.Y=10.77mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (25.7mil,8.928mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=16.868mil|Location2.X=24.535mil|Location1.Y=21.489mil|Location2.Y=29.155mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=16.868mil|Location2.X=24.535mil|Location1.Y=21.489mil|Location2.Y=29.155mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (26.701mil,34.092mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.987mil|Location2.X=20.654mil|Location1.Y=15.376mil|Location2.Y=23.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.987mil|Location2.X=20.654mil|Location1.Y=15.376mil|Location2.Y=23.042mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (26.722mil,-34.763mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.363mil|Location2.X=29.03mil|Location1.Y=18.628mil|Location2.Y=26.294mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.363mil|Location2.X=29.03mil|Location1.Y=18.628mil|Location2.Y=26.294mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (27.117mil,21.18mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.049mil|Location2.X=22.715mil|Location1.Y=20.35mil|Location2.Y=28.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.049mil|Location2.X=22.715mil|Location1.Y=20.35mil|Location2.Y=28.016mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (27.59mil,26.112mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.114mil|Location2.X=28.78mil|Location1.Y=18.043mil|Location2.Y=25.71mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.114mil|Location2.X=28.78mil|Location1.Y=18.043mil|Location2.Y=25.71mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (27.672mil,20.915mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.321mil|Location2.X=25.987mil|Location1.Y=4.724mil|Location2.Y=12.39mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.321mil|Location2.X=25.987mil|Location1.Y=4.724mil|Location2.Y=12.39mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (27.769mil,9.598mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=16.578mil|Location2.X=24.244mil|Location1.Y=2.855mil|Location2.Y=10.522mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=16.578mil|Location2.X=24.244mil|Location1.Y=2.855mil|Location2.Y=10.522mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (27.98mil,10.617mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.679mil|Location2.X=21.346mil|Location1.Y=4.161mil|Location2.Y=11.828mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13.679mil|Location2.X=21.346mil|Location1.Y=4.161mil|Location2.Y=11.828mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (28.701mil,0.06mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.023mil|Location2.X=28.689mil|Location1.Y=21.984mil|Location2.Y=29.65mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.023mil|Location2.X=28.689mil|Location1.Y=21.984mil|Location2.Y=29.65mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (29.449mil,25.649mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.804mil|Location2.X=27.471mil|Location1.Y=22.036mil|Location2.Y=29.703mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.804mil|Location2.X=27.471mil|Location1.Y=22.036mil|Location2.Y=29.703mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (29.715mil,20.839mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-2.434mil|Location2.X=5.232mil|Location1.Y=-0.522mil|Location2.Y=7.144mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-2.434mil|Location2.X=5.232mil|Location1.Y=-0.522mil|Location2.Y=7.144mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.124mil,2.481mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.467mil|Location2.X=7.199mil|Location1.Y=-3.455mil|Location2.Y=4.212mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.467mil|Location2.X=7.199mil|Location1.Y=-3.455mil|Location2.Y=4.212mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.209mil,2.715mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.733mil|Location2.X=6.934mil|Location1.Y=-1.509mil|Location2.Y=6.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.733mil|Location2.X=6.934mil|Location1.Y=-1.509mil|Location2.Y=6.158mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.402mil,2.198mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.176mil|Location2.X=7.49mil|Location1.Y=-3.22mil|Location2.Y=4.447mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.176mil|Location2.X=7.49mil|Location1.Y=-3.22mil|Location2.Y=4.447mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.444mil,0.458mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3.029mil|Location2.X=10.695mil|Location1.Y=3.701mil|Location2.Y=11.368mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3.029mil|Location2.X=10.695mil|Location1.Y=3.701mil|Location2.Y=11.368mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.465mil,10.204mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.106mil|Location2.X=7.561mil|Location1.Y=-3.31mil|Location2.Y=4.356mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.106mil|Location2.X=7.561mil|Location1.Y=-3.31mil|Location2.Y=4.356mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.542mil,0.785mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.985mil|Location2.X=6.682mil|Location1.Y=-3.299mil|Location2.Y=4.368mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.985mil|Location2.X=6.682mil|Location1.Y=-3.299mil|Location2.Y=4.368mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.56mil,2.382mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.679mil|Location2.X=6.987mil|Location1.Y=-1.321mil|Location2.Y=6.345mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.679mil|Location2.X=6.987mil|Location1.Y=-1.321mil|Location2.Y=6.345mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.622mil,2.033mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3.707mil|Location2.X=11.374mil|Location1.Y=4.926mil|Location2.Y=12.593mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3.707mil|Location2.X=11.374mil|Location1.Y=4.926mil|Location2.Y=12.593mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (-3.8mil,13.389mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.706mil|Location2.X=6.961mil|Location1.Y=-1.899mil|Location2.Y=5.768mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.706mil|Location2.X=6.961mil|Location1.Y=-1.899mil|Location2.Y=5.768mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (3.915mil,2.298mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.69mil|Location2.X=28.357mil|Location1.Y=16.895mil|Location2.Y=24.561mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.69mil|Location2.X=28.357mil|Location1.Y=16.895mil|Location2.Y=24.561mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (30.206mil,20.553mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.075mil|Location2.X=26.741mil|Location1.Y=10.494mil|Location2.Y=18.161mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.075mil|Location2.X=26.741mil|Location1.Y=10.494mil|Location2.Y=18.161mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (31.405mil,10.924mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.119mil|Location2.X=25.786mil|Location1.Y=6.321mil|Location2.Y=13.988mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.119mil|Location2.X=25.786mil|Location1.Y=6.321mil|Location2.Y=13.988mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (33.062mil,9.872mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4.97mil|Location2.X=12.637mil|Location1.Y=8.025mil|Location2.Y=15.691mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4.97mil|Location2.X=12.637mil|Location1.Y=8.025mil|Location2.Y=15.691mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (35.522mil,3.152mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.353mil|Location2.X=28.019mil|Location1.Y=13.058mil|Location2.Y=20.725mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=20.353mil|Location2.X=28.019mil|Location1.Y=13.058mil|Location2.Y=20.725mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (38.104mil,8.724mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.042mil|Location2.X=28.708mil|Location1.Y=15.562mil|Location2.Y=23.229mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.042mil|Location2.X=28.708mil|Location1.Y=15.562mil|Location2.Y=23.229mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (38.252mil,21.18mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.838mil|Location2.X=27.505mil|Location1.Y=12.17mil|Location2.Y=19.837mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.838mil|Location2.X=27.505mil|Location1.Y=12.17mil|Location2.Y=19.837mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (39.339mil,6.517mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-1.702mil|Location2.X=5.965mil|Location1.Y=-3.034mil|Location2.Y=4.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-1.702mil|Location2.X=5.965mil|Location1.Y=-3.034mil|Location2.Y=4.633mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (4.182mil,3.52mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.425mil|Location2.X=26.091mil|Location1.Y=8.192mil|Location2.Y=15.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.425mil|Location2.X=26.091mil|Location1.Y=8.192mil|Location2.Y=15.858mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (41.423mil,8.652mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.754mil|Location2.X=8.421mil|Location1.Y=1.992mil|Location2.Y=9.658mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.754mil|Location2.X=8.421mil|Location1.Y=1.992mil|Location2.Y=9.658mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (-5.022mil,23.753mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.54mil|Location2.X=7.127mil|Location1.Y=-2.325mil|Location2.Y=5.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.54mil|Location2.X=7.127mil|Location1.Y=-2.325mil|Location2.Y=5.341mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (6.202mil,3.724mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5.532mil|Location2.X=13.198mil|Location1.Y=0.842mil|Location2.Y=8.509mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5.532mil|Location2.X=13.198mil|Location1.Y=0.842mil|Location2.Y=8.509mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (7.738mil,-70.047mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-1.628mil|Location2.X=6.039mil|Location1.Y=0.396mil|Location2.Y=8.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-1.628mil|Location2.X=6.039mil|Location1.Y=0.396mil|Location2.Y=8.063mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (7.907mil,-4.688mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.216mil|Location2.X=7.882mil|Location1.Y=-0.714mil|Location2.Y=6.953mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.216mil|Location2.X=7.882mil|Location1.Y=-0.714mil|Location2.Y=6.953mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Arc (8.518mil,-4.046mil) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.273mil|Location2.X=2194.523mil|Location1.Y=3419.571mil|Location2.Y=3430.821mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.273mil|Location2.X=2194.523mil|Location1.Y=3419.571mil|Location2.Y=3430.821mil|Absolute=True">Board Outline Clearance(Outline Edge): (2.205mil &lt; 10mil) Between Board Edge And Pad M2-1(2050mil,3425.196mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1136.107mil|Location2.X=1147.357mil|Location1.Y=3280.575mil|Location2.Y=3291.825mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1136.107mil|Location2.X=1147.357mil|Location1.Y=3280.575mil|Location2.Y=3291.825mil|Absolute=True">Board Outline Clearance(Outline Edge): (2.401mil &lt; 10mil) Between Board Edge And Pad M3-1(1141.732mil,3425.196mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-2.854mil|Location2.X=4.813mil|Location1.Y=-1.462mil|Location2.Y=6.205mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-2.854mil|Location2.X=4.813mil|Location1.Y=-1.462mil|Location2.Y=6.205mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (0.977mil,2.411mil)(0.982mil,2.333mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=3564.375mil|Location2.Y=3575.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=3564.375mil|Location2.Y=3575.625mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (1010mil,3570mil)(1010mil,4170mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=3564.375mil|Location2.Y=3575.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=3564.375mil|Location2.Y=3575.625mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (1010mil,3570mil)(1110mil,3570mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4164.375mil|Location2.Y=4175.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4164.375mil|Location2.Y=4175.625mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (1010mil,4170mil)(1110mil,4170mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4184.375mil|Location2.Y=4195.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4184.375mil|Location2.Y=4195.625mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (1010mil,4190mil)(1010mil,4990mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4184.375mil|Location2.Y=4195.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4184.375mil|Location2.Y=4195.625mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (1010mil,4190mil)(1110mil,4190mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4984.375mil|Location2.Y=4995.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=997.406mil|Location2.X=1008.656mil|Location1.Y=4984.375mil|Location2.Y=4995.625mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (1010mil,4990mil)(1110mil,4990mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1104.375mil|Location2.X=1115.625mil|Location1.Y=4991.344mil|Location2.Y=5002.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1104.375mil|Location2.X=1115.625mil|Location1.Y=4991.344mil|Location2.Y=5002.594mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (1110mil,4190mil)(1110mil,4990mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1348.3mil|Location2.X=1355.967mil|Location1.Y=3224.173mil|Location2.Y=3231.839mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1348.3mil|Location2.X=1355.967mil|Location1.Y=3224.173mil|Location2.Y=3231.839mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1352.133mil,3175.274mil)(1352.133mil,3500.078mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1585.308mil|Location2.X=1592.975mil|Location1.Y=3171.441mil|Location2.Y=3179.107mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1585.308mil|Location2.X=1592.975mil|Location1.Y=3171.441mil|Location2.Y=3179.107mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1352.133mil,3175.274mil)(1826.149mil,3175.274mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1432.132mil|Location2.X=1439.798mil|Location1.Y=3274.691mil|Location2.Y=3282.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1432.132mil|Location2.X=1439.798mil|Location1.Y=3274.691mil|Location2.Y=3282.357mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1432.52mil,3280.984mil)(1439.41mil,3276.064mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1430.286mil|Location2.X=1437.952mil|Location1.Y=3277.6mil|Location2.Y=3285.266mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1430.286mil|Location2.X=1437.952mil|Location1.Y=3277.6mil|Location2.Y=3285.266mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1432.52mil,3280.984mil)(1444.33mil,3299.686mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1438.697mil|Location2.X=1446.363mil|Location1.Y=3275.141mil|Location2.Y=3282.808mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1438.697mil|Location2.X=1446.363mil|Location1.Y=3275.141mil|Location2.Y=3282.808mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1439.41mil,3276.064mil)(1454.42mil,3300.078mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1458.607mil|Location2.X=1466.273mil|Location1.Y=3275.1mil|Location2.Y=3282.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1458.607mil|Location2.X=1466.273mil|Location1.Y=3275.1mil|Location2.Y=3282.767mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1462.44mil,3276.064mil)(1462.44mil,3300.078mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1586.167mil|Location2.X=1593.833mil|Location1.Y=3272.231mil|Location2.Y=3279.897mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1586.167mil|Location2.X=1593.833mil|Location1.Y=3272.231mil|Location2.Y=3279.897mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1462.44mil,3276.064mil)(1717.56mil,3276.064mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.485mil|Location2.X=20.152mil|Location1.Y=15.459mil|Location2.Y=23.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12.485mil|Location2.X=20.152mil|Location1.Y=15.459mil|Location2.Y=23.125mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (16.285mil,19.285mil)(16.351mil,19.299mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1713.727mil|Location2.X=1721.393mil|Location1.Y=3275.1mil|Location2.Y=3282.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1713.727mil|Location2.X=1721.393mil|Location1.Y=3275.1mil|Location2.Y=3282.767mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1717.56mil,3276.064mil)(1717.56mil,3300.078mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.637mil|Location2.X=1741.303mil|Location1.Y=3275.141mil|Location2.Y=3282.808mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1733.637mil|Location2.X=1741.303mil|Location1.Y=3275.141mil|Location2.Y=3282.808mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1725.58mil,3300.078mil)(1740.59mil,3276.064mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1742.047mil|Location2.X=1749.714mil|Location1.Y=3277.6mil|Location2.Y=3285.266mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1742.047mil|Location2.X=1749.714mil|Location1.Y=3277.6mil|Location2.Y=3285.266mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1735.67mil,3299.686mil)(1747.48mil,3280.984mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.202mil|Location2.X=1747.868mil|Location1.Y=3274.691mil|Location2.Y=3282.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.202mil|Location2.X=1747.868mil|Location1.Y=3274.691mil|Location2.Y=3282.357mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1740.59mil,3276.064mil)(1747.48mil,3280.984mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.239mil|Location2.X=21.905mil|Location1.Y=5.158mil|Location2.Y=12.825mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.239mil|Location2.X=21.905mil|Location1.Y=5.158mil|Location2.Y=12.825mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (18.043mil,8.969mil)(18.101mil,9.014mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.49mil|Location2.X=22.157mil|Location1.Y=15.914mil|Location2.Y=23.581mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.49mil|Location2.X=22.157mil|Location1.Y=15.914mil|Location2.Y=23.581mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (18.285mil,19.732mil)(18.361mil,19.762mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.527mil|Location2.X=22.194mil|Location1.Y=0.961mil|Location2.Y=8.627mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.527mil|Location2.X=22.194mil|Location1.Y=0.961mil|Location2.Y=8.627mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (18.323mil,4.779mil)(18.398mil,4.809mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.565mil|Location2.X=22.232mil|Location1.Y=15.945mil|Location2.Y=23.612mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.565mil|Location2.X=22.232mil|Location1.Y=15.945mil|Location2.Y=23.612mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (18.361mil,19.762mil)(18.436mil,19.794mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.561mil|Location2.X=22.227mil|Location1.Y=1.016mil|Location2.Y=8.682mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=14.561mil|Location2.X=22.227mil|Location1.Y=1.016mil|Location2.Y=8.682mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (18.391mil,4.889mil)(18.398mil,4.809mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1822.316mil|Location2.X=1829.983mil|Location1.Y=3224.173mil|Location2.Y=3231.839mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1822.316mil|Location2.X=1829.983mil|Location1.Y=3224.173mil|Location2.Y=3231.839mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (1826.149mil,3175.274mil)(1826.149mil,3500.078mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.221mil|Location2.X=22.887mil|Location1.Y=5.287mil|Location2.Y=12.954mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15.221mil|Location2.X=22.887mil|Location1.Y=5.287mil|Location2.Y=12.954mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (19.025mil,9.133mil)(19.084mil,9.108mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=3566.167mil|Location2.Y=3573.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=3566.167mil|Location2.Y=3573.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (2086.81mil,3570mil)(2186.81mil,3570mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4166.167mil|Location2.Y=4173.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4166.167mil|Location2.Y=4173.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (2086.81mil,4170mil)(2186.81mil,4170mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2081.185mil|Location2.X=2092.435mil|Location1.Y=4991.344mil|Location2.Y=5002.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2081.185mil|Location2.X=2092.435mil|Location1.Y=4991.344mil|Location2.Y=5002.594mil|Absolute=True">Board Outline Clearance(Outline Edge): (6.064mil &lt; 10mil) Between Board Edge And Track (2086.81mil,4190mil)(2086.81mil,4990mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4186.167mil|Location2.Y=4193.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4186.167mil|Location2.Y=4193.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (2086.81mil,4190mil)(2186.81mil,4190mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4986.167mil|Location2.Y=4993.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4986.167mil|Location2.Y=4993.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (2086.81mil,4990mil)(2186.81mil,4990mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=3866.167mil|Location2.Y=3873.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=3866.167mil|Location2.Y=3873.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (2186.81mil,3570mil)(2186.81mil,4170mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4586.167mil|Location2.Y=4593.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2186.703mil|Location2.X=2194.369mil|Location1.Y=4586.167mil|Location2.Y=4593.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (2186.81mil,4190mil)(2186.81mil,4990mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.285mil|Location2.X=25.952mil|Location1.Y=3.912mil|Location2.Y=11.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.285mil|Location2.X=25.952mil|Location1.Y=3.912mil|Location2.Y=11.578mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (22.103mil,7.79mil)(22.134mil,7.699mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.317mil|Location2.X=25.984mil|Location1.Y=20.808mil|Location2.Y=28.474mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.317mil|Location2.X=25.984mil|Location1.Y=20.808mil|Location2.Y=28.474mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (22.117mil,24.63mil)(22.184mil,24.652mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.384mil|Location2.X=26.05mil|Location1.Y=20.831mil|Location2.Y=28.498mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=18.384mil|Location2.X=26.05mil|Location1.Y=20.831mil|Location2.Y=28.498mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (22.184mil,24.652mil)(22.25mil,24.678mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.152mil|Location2.X=26.819mil|Location1.Y=0.332mil|Location2.Y=7.999mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=19.152mil|Location2.X=26.819mil|Location1.Y=0.332mil|Location2.Y=7.999mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (22.955mil,4.164mil)(23.017mil,4.167mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.012mil|Location2.X=28.679mil|Location1.Y=21.066mil|Location2.Y=28.732mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.012mil|Location2.X=28.679mil|Location1.Y=21.066mil|Location2.Y=28.732mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (24.84mil,24.94mil)(24.852mil,24.858mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.025mil|Location2.X=28.691mil|Location1.Y=20.984mil|Location2.Y=28.651mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21.025mil|Location2.X=28.691mil|Location1.Y=20.984mil|Location2.Y=28.651mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (24.852mil,24.858mil)(24.864mil,24.777mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.031mil|Location2.X=7.636mil|Location1.Y=-3.092mil|Location2.Y=4.574mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.031mil|Location2.X=7.636mil|Location1.Y=-3.092mil|Location2.Y=4.574mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (3.79mil,0.761mil)(3.816mil,0.721mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.014mil|Location2.X=7.68mil|Location1.Y=-3.45mil|Location2.Y=4.217mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.014mil|Location2.X=7.68mil|Location1.Y=-3.45mil|Location2.Y=4.217mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (3.835mil,0.372mil)(3.859mil,0.395mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.04mil|Location2.X=7.707mil|Location1.Y=-3.412mil|Location2.Y=4.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.04mil|Location2.X=7.707mil|Location1.Y=-3.412mil|Location2.Y=4.255mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (3.859mil,0.395mil)(3.889mil,0.448mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.059mil|Location2.X=7.726mil|Location1.Y=-3.356mil|Location2.Y=4.311mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0.059mil|Location2.X=7.726mil|Location1.Y=-3.356mil|Location2.Y=4.311mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Track (3.889mil,0.448mil)(3.897mil,0.507mil) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=998.686mil|Location2.X=1009.936mil|Location1.Y=3418.695mil|Location2.Y=3429.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=998.686mil|Location2.X=1009.936mil|Location1.Y=3418.695mil|Location2.Y=3429.945mil|Absolute=True">Board Outline Clearance(Outline Edge): (8.623mil &lt; 10mil) Between Board Edge And Via (1033.622mil,3424.32mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2044.375mil|Location2.X=2055.625mil|Location1.Y=3279.648mil|Location2.Y=3290.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Eric\Documents\Simulator\PCB\arduinoLeonardoOwn\arduinoLeonardoOwn.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2044.375mil|Location2.X=2055.625mil|Location1.Y=3279.648mil|Location2.Y=3290.898mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.546mil &lt; 10mil) Between Board Edge And Via (2050mil,3310.546mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
